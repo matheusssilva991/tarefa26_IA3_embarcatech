@@ -35,10 +35,12 @@ pico_sdk_init()
 
 # Add executable. Default name is the project name, version 0.1
 
-add_executable(main main.c )
+add_executable(main main.c tflm_wrapper.cpp )
 
 pico_set_program_name(${PROJECT_NAME} "tarefa25_IA3_embarcatech")
 pico_set_program_version(${PROJECT_NAME} "0.1")
+
+add_subdirectory(lib/pico-tflmicro EXCLUDE_FROM_ALL)
 
 # Modify the below lines to enable/disable output over UART/USB
 pico_enable_stdio_uart(${PROJECT_NAME} 1)
@@ -46,7 +48,9 @@ pico_enable_stdio_usb(${PROJECT_NAME} 0)
 
 # Add the standard library to the build
 target_link_libraries(${PROJECT_NAME}
-        pico_stdlib)
+        pico_stdlib
+        hardware_sync
+        pico-tflmicro)
 
 # Add the standard include files to the build
 target_include_directories(${PROJECT_NAME} PRIVATE
